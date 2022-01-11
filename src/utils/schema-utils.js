@@ -33,7 +33,7 @@ export function getTypeInfo(schema) {
     deprecated: schema.deprecated ? '❌' : '',
     examples: schema.examples || schema.example,
     default: schema.default || '',
-    description: schema.description || '',
+    description: schema.description || schema.title || '',
     constrain: '',
     allowedValues: '',
     arrayType: '',
@@ -491,6 +491,7 @@ export function schemaInObjectNotation(schema, obj, level = 0, suffix = '') {
   if (!schema) {
     return;
   }
+  schema.description = schema.description || schema.title;
   if (schema.allOf) {
     const objWithAllProps = {};
     if (schema.allOf.length === 1 && !schema.allOf[0].properties && !schema.allOf[0].items) {
